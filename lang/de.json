@@ -1,0 +1,88 @@
+{
+  "DC20CS": {
+    "Advantage": {
+      "Label": "Vorteil",
+      "Tier1": "Vorteil (2W20)",
+      "Tier2": "2× Vorteil (3W20)",
+      "Tier3": "3× Vorteil (4W20)",
+      "IncreaseHint": "Vorteil-Stufe erhöhen (2W20 → 3W20 → 4W20). Rechtsklick zum Verringern.",
+      "DecreaseHint": "Vorteil-Stufe verringern",
+      "ChatTag": "Vorteil ×{tier} [{dice}W20]"
+    },
+    "Disadvantage": {
+      "Label": "Nachteil",
+      "Tier1": "Nachteil (2W20)",
+      "Tier2": "2× Nachteil (3W20)",
+      "Tier3": "3× Nachteil (4W20)",
+      "IncreaseHint": "Nachteil-Stufe erhöhen (2W20 → 3W20 → 4W20). Rechtsklick zum Verringern.",
+      "DecreaseHint": "Nachteil-Stufe verringern",
+      "ChatTag": "Nachteil ×{tier} [{dice}W20]"
+    },
+    "Degree": {
+      "fumble": "Kritischer Fehlschlag",
+      "miss": "Verfehlt",
+      "normal": "Normaler Treffer",
+      "heavy": "Heavy Hit",
+      "brutal": "Brutal Hit",
+      "critical": "Kritischer Treffer!",
+      "Sub": {
+        "fumble": "Natürliche 1",
+        "miss": "Unter RK",
+        "normal": "1/2 Max-Würfel (RK bis RK+4)",
+        "heavy": "3/4 Max-Würfel (RK+5 bis RK+9)",
+        "brutal": "Voller Max-Würfel (RK+10+)",
+        "critical": "Natürliche 20! Option wählen"
+      }
+    },
+    "Damage": {
+      "StaticLabel": "Statischer Schaden",
+      "DiceMax": "Max-Würfel",
+      "Modifier": "Modifikator",
+      "Formula": "Basis",
+      "Apply": "Schaden anwenden",
+      "Applied": "Angewendet",
+      "NoTargetTitle": "Statische Schadensstufen (Kein Ziel gewählt)",
+      "EvaluateTarget": "Aktuelles Ziel auswerten",
+      "NoTargetWarn": "Bitte wähle zuerst ein Ziel (T-Taste auf einem Token) aus!"
+    },
+    "Crit": {
+      "Header": "Kritischer Treffer — Wähle deine Option:",
+      "OptionATitle": "Maximaler Schaden",
+      "OptionASub": "Brutal Hit (Max) + Normaler Hit (1/2)",
+      "OptionBTitle": "Taktischer Schlag",
+      "OptionBSub": "Brutal Hit (Max) + Zustand aufzwingen",
+      "SelectCondition": "Zustand für das Ziel wählen:",
+      "CustomConditionPlaceholder": "Oder eigenen Zustand eingeben (z.B. Verkrüppelt)...",
+      "ApplyConditionBtn": "Zustand anwenden",
+      "SelectedMax": "Gewählt: Maximaler Schaden ({damage} Schaden)",
+      "SelectedCondition": "Gewählt: Taktischer Schlag ({damage} Schaden + {condition})",
+      "ConditionApplied": "Zustand „{condition}“ auf {target} angewendet!"
+    },
+    "Conditions": {
+      "prone": "Liegend",
+      "blinded": "Blind",
+      "grappled": "Gepackt",
+      "restrained": "Festgesetzt",
+      "stunned": "Betäubt",
+      "frightened": "Verängstigt",
+      "poisoned": "Vergiftet",
+      "deafened": "Taub",
+      "incapacitated": "Kampfunfähig",
+      "crippled": "Verkrüppelt (Halbe Bewegung)"
+    },
+    "Settings": {
+      "EnableMultiAdv": {
+        "Name": "Mehrfach-Vorteil & Nachteil (2–4 W20)",
+        "Hint": "Fügt im Angriffs- und W20-Dialog einen + Button neben Vorteil und Nachteil hinzu (2W20, 3W20, 4W20)."
+      },
+      "EnableStaticDamage": {
+        "Name": "DC20 Treffergrade & Statischer Schaden im Chat",
+        "Hint": "Zeigt direkt beim Angriffswurf im Chat den Treffergrad (Normal, Heavy, Brutal, Kritisch), den statischen Schaden und die Krit-Auswahl an."
+      },
+      "HideVanillaDamageButton": {
+        "Name": "Standard-Schadenswurf-Button ausblenden",
+        "Hint": "Blendet den normalen D&D 5e Schadenswurf-Button auf Aktionskarten aus, da der statische Schaden direkt beim Angriff berechnet wird."
+      }
+    }
+  }
+}
