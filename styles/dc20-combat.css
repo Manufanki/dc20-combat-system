@@ -1,0 +1,907 @@
+/* ==========================================================================
+   DC20 Combat System for DnD 5e — Stylesheet
+   ========================================================================== */
+
+:root {
+  --dc20cs-gold: #d4af37;
+  --dc20cs-gold-bright: #f5d061;
+  --dc20cs-adv: #1f8a5b;
+  --dc20cs-adv-glow: rgba(46, 204, 113, 0.35);
+  --dc20cs-dis: #a62b2b;
+  --dc20cs-dis-glow: rgba(231, 76, 60, 0.35);
+
+  --dc20cs-miss: #6b7280;
+  --dc20cs-fumble: #991b1b;
+  --dc20cs-normal: #15803d;
+  --dc20cs-heavy: #d97706;
+  --dc20cs-brutal: #7e22ce;
+  --dc20cs-critical: #b45309;
+}
+
+/* ==========================================================================
+   1. Roll Dialog: Multi-Advantage & Multi-Disadvantage (+ Button Groups)
+   ========================================================================== */
+
+.dialog-buttons.dc20cs-dialog-buttons,
+.form-footer.dc20cs-dialog-buttons,
+footer.dc20cs-dialog-buttons {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch !important;
+  gap: 5px !important;
+  margin-top: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dc20cs-dialog-buttons > button.normal,
+.dc20cs-dialog-buttons > button[data-button="normal"],
+.dc20cs-dialog-buttons > button[data-action="normal"] {
+  flex: 0.72 1 0 !important;
+  min-width: 58px !important;
+  height: auto !important;
+  min-height: 44px !important;
+  max-height: none !important;
+  padding: 4px 6px !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+  box-sizing: border-box !important;
+}
+
+.dc20cs-roll-btn-group {
+  flex: 1.45 1 0 !important;
+  min-width: 0 !important;
+  display: inline-flex !important;
+  align-items: stretch !important;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(159, 146, 117, 0.65);
+  background: rgba(20, 20, 24, 0.14);
+  box-sizing: border-box;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.dc20cs-roll-btn-group button.dc20cs-main-roll-btn {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 44px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 4px 5px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  line-height: 1.15 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  box-sizing: border-box !important;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.dc20cs-roll-btn-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  min-width: 0;
+}
+
+.dc20cs-roll-btn-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dc20cs-roll-btn-title > i {
+  font-size: 10px;
+}
+
+.dc20cs-roll-btn-sub {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  line-height: 1;
+}
+
+.dc20cs-roll-btn-dice {
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.9;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.dc20cs-roll-btn-pips {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.dc20cs-die-pip {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.75;
+  transition: transform 140ms ease, opacity 140ms ease;
+}
+
+.dc20cs-roll-btn-group[data-dice="3"] .dc20cs-die-pip,
+.dc20cs-roll-btn-group[data-dice="4"] .dc20cs-die-pip {
+  opacity: 1;
+  transform: scale(1.12);
+}
+
+/* The + Stepper Button next to Advantage / Disadvantage */
+.dc20cs-roll-btn-group button.dc20cs-plus-btn {
+  flex: 0 0 28px !important;
+  width: 28px !important;
+  min-width: 28px !important;
+  max-width: 28px !important;
+  height: auto !important;
+  min-height: 44px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 2px 2px !important;
+  border: none !important;
+  border-left: 1px solid rgba(159, 146, 117, 0.45) !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.14) !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.dc20cs-plus-btn .dc20cs-plus-next {
+  font-size: 9px;
+  opacity: 0.9;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Advantage Group Styling & Tier Highlights */
+.dc20cs-advantage-group:hover {
+  border-color: var(--dc20cs-adv);
+  box-shadow: 0 0 6px var(--dc20cs-adv-glow);
+}
+
+.dc20cs-advantage-group button.dc20cs-plus-btn:hover {
+  background: rgba(31, 138, 91, 0.28) !important;
+  color: #22c55e !important;
+}
+
+.dc20cs-advantage-group[data-dice="3"] {
+  border-color: #16a34a;
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.18), rgba(21, 128, 61, 0.08));
+  box-shadow: 0 0 8px rgba(22, 163, 74, 0.3);
+}
+
+.dc20cs-advantage-group[data-dice="4"] {
+  border-color: #d4af37;
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.26), rgba(212, 175, 55, 0.22));
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.45);
+}
+
+/* Disadvantage Group Styling & Tier Highlights */
+.dc20cs-disadvantage-group:hover {
+  border-color: var(--dc20cs-dis);
+  box-shadow: 0 0 6px var(--dc20cs-dis-glow);
+}
+
+.dc20cs-disadvantage-group button.dc20cs-plus-btn:hover {
+  background: rgba(185, 28, 28, 0.28) !important;
+  color: #f87171 !important;
+}
+
+.dc20cs-disadvantage-group[data-dice="3"] {
+  border-color: #dc2626;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.18), rgba(153, 27, 27, 0.08));
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
+}
+
+.dc20cs-disadvantage-group[data-dice="4"] {
+  border-color: #991b1b;
+  background: linear-gradient(135deg, rgba(185, 28, 28, 0.28), rgba(127, 29, 29, 0.18));
+  box-shadow: 0 0 10px rgba(185, 28, 28, 0.45);
+}
+
+/* ==========================================================================
+   2. Chat Card: DC20 Attack Result & Static Damage
+   ========================================================================== */
+
+.dc20cs-card {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--dnd5e-font-roboto, "Roboto", sans-serif);
+  color: #1e293b;
+}
+
+/* Multi-Advantage / Disadvantage Banner in Chat */
+.dc20cs-d20-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+.dc20cs-d20-advantage {
+  background: #dcfce7;
+  border: 1px solid #16a34a;
+  color: #14532d !important;
+}
+
+.dc20cs-d20-disadvantage {
+  background: #fee2e2;
+  border: 1px solid #dc2626;
+  color: #7f1d1d !important;
+}
+
+.dc20cs-d20-rolled {
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Target Card */
+.dc20cs-targets {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dc20cs-target-card {
+  border-radius: 7px;
+  border: 1px solid rgba(159, 146, 117, 0.55);
+  background: #f8f6f1;
+  color: #1e293b;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.dc20cs-target-card.dc20cs-degree-normal {
+  border-left: 4px solid var(--dc20cs-normal);
+}
+
+.dc20cs-target-card.dc20cs-degree-heavy {
+  border-left: 4px solid var(--dc20cs-heavy);
+}
+
+.dc20cs-target-card.dc20cs-degree-brutal {
+  border-left: 4px solid var(--dc20cs-brutal);
+}
+
+.dc20cs-target-card.dc20cs-degree-critical {
+  border: 1.5px solid var(--dc20cs-gold);
+  border-left: 4px solid var(--dc20cs-gold);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.28);
+}
+
+.dc20cs-target-card.dc20cs-degree-miss,
+.dc20cs-target-card.dc20cs-degree-fumble {
+  border-left: 4px solid var(--dc20cs-miss);
+  opacity: 0.92;
+}
+
+/* Row 1: Target Identity & Roll vs AC Pills */
+.dc20cs-target-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.dc20cs-target-identity {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dc20cs-target-img {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 5px;
+  object-fit: cover;
+  border: 1px solid rgba(159, 146, 117, 0.7);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dc20cs-target-name {
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dc20cs-target-vs {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.dc20cs-roll-pill,
+.dc20cs-ac-pill {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  color: #1e293b;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap !important;
+}
+
+.dc20cs-vs-sep {
+  flex: 0 0 auto;
+  opacity: 0.65;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap !important;
+}
+
+.dc20cs-margin-pill {
+  flex: 0 0 auto;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 10px;
+  line-height: 1.1;
+  white-space: nowrap !important;
+}
+
+.dc20cs-margin-pill.is-hit {
+  background: #dcfce7;
+  border: 1px solid rgba(22, 163, 74, 0.4);
+  color: #15803d !important;
+}
+
+.dc20cs-margin-pill.is-miss {
+  background: #fee2e2;
+  border: 1px solid rgba(185, 28, 28, 0.4);
+  color: #b91c1c !important;
+}
+
+/* Row 2: Full-Width Hit Degree Banner */
+.dc20cs-degree-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 8px;
+  color: #ffffff !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.dc20cs-degree-banner-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.dc20cs-degree-banner-left > i {
+  font-size: 13px;
+}
+
+.dc20cs-degree-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.dc20cs-degree-sub {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.95;
+  line-height: 1.15;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dc20cs-badge-miss {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+}
+
+.dc20cs-badge-fumble {
+  background: linear-gradient(135deg, #991b1b, #7f1d1d);
+}
+
+.dc20cs-badge-normal {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.dc20cs-badge-heavy {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.dc20cs-badge-brutal {
+  background: linear-gradient(135deg, #9333ea, #6b21a8);
+}
+
+.dc20cs-badge-critical {
+  background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+/* Row 3: Static Damage Row */
+.dc20cs-damage-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-top: 1px solid rgba(159, 146, 117, 0.35);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dc20cs-damage-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dc20cs-damage-number {
+  flex: 0 0 auto !important;
+  min-width: 38px;
+  height: 34px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1.5px solid rgba(159, 146, 117, 0.7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  font-variant-numeric: tabular-nums;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.dc20cs-degree-critical .dc20cs-damage-number {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #92400e !important;
+}
+
+.dc20cs-damage-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.dc20cs-damage-type {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.2;
+}
+
+.dc20cs-dmg-icon {
+  width: 13px;
+  height: 13px;
+  border: none;
+  opacity: 0.85;
+}
+
+.dc20cs-condition-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7e22ce, #581c87);
+  color: #fff !important;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dc20cs-damage-formula {
+  font-size: 10px;
+  color: #475569;
+  font-weight: 500;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Apply Damage Button */
+.dc20cs-apply-damage-btn {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 30px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 5px 10px !important;
+  border-radius: 5px !important;
+  border: 1px solid #b91c1c !important;
+  background: #fee2e2 !important;
+  color: #7f1d1d !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  white-space: nowrap !important;
+  text-transform: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 100ms ease;
+}
+
+.dc20cs-apply-damage-btn:hover {
+  background: #fecaca !important;
+  border-color: #991b1b !important;
+}
+
+.dc20cs-apply-damage-btn.is-applied {
+  background: #dcfce7 !important;
+  border-color: #16a34a !important;
+  color: #14532d !important;
+}
+
+/* ==========================================================================
+   3. Critical Hit Choice Panel (Option A: Max Damage vs Option B: Condition)
+   ========================================================================== */
+
+.dc20cs-crit-panel {
+  padding: 8px;
+  border-top: 1px dashed rgba(217, 119, 6, 0.55);
+  background: rgba(254, 243, 199, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dc20cs-crit-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #92400e !important;
+}
+
+.dc20cs-crit-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  align-items: stretch;
+}
+
+button.dc20cs-crit-option {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 62px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 7px 8px !important;
+  border-radius: 6px !important;
+  border: 1.5px solid rgba(159, 146, 117, 0.65) !important;
+  background: #ffffff !important;
+  color: #1e293b !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 3px !important;
+  text-align: left !important;
+  white-space: normal !important;
+  text-transform: none !important;
+  line-height: 1.2 !important;
+  box-sizing: border-box !important;
+  cursor: pointer;
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 120ms ease;
+}
+
+button.dc20cs-crit-option:hover:not(:disabled) {
+  border-color: #d97706 !important;
+  transform: translateY(-1px);
+}
+
+button.dc20cs-crit-option.is-selected {
+  border-color: #d97706 !important;
+  background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
+  box-shadow: 0 0 6px rgba(217, 119, 6, 0.3);
+}
+
+.dc20cs-crit-opt-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.15;
+}
+
+.dc20cs-crit-opt-max .dc20cs-crit-opt-top > i {
+  color: #d97706;
+}
+
+.dc20cs-crit-opt-condition .dc20cs-crit-opt-top > i {
+  color: #7e22ce;
+}
+
+.dc20cs-crit-opt-sub {
+  display: block;
+  font-size: 10px;
+  color: #475569;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.dc20cs-crit-opt-value {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #92400e !important;
+  line-height: 1.15;
+}
+
+/* Condition Picker Grid */
+.dc20cs-condition-picker {
+  padding: 6px;
+  border-radius: 6px;
+  background: rgba(126, 34, 206, 0.08);
+  border: 1px solid rgba(126, 34, 206, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dc20cs-condition-picker-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #581c87;
+}
+
+.dc20cs-condition-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+button.dc20cs-condition-chip {
+  width: auto !important;
+  height: auto !important;
+  min-height: 24px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 3px 8px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(126, 34, 206, 0.45) !important;
+  background: #ffffff !important;
+  color: #3b0764 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  text-transform: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+
+button.dc20cs-condition-chip:hover:not(:disabled) {
+  border-color: #7e22ce !important;
+  background: #f3e8ff !important;
+}
+
+button.dc20cs-condition-chip.is-active {
+  background: linear-gradient(135deg, #7e22ce, #581c87) !important;
+  border-color: #581c87 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 6px rgba(126, 34, 206, 0.4);
+}
+
+.dc20cs-custom-condition-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.dc20cs-custom-condition-input {
+  flex: 1 1 auto;
+  height: 26px !important;
+  font-size: 11px !important;
+  padding: 2px 6px !important;
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid rgba(126, 34, 206, 0.4) !important;
+  border-radius: 4px !important;
+}
+
+button.dc20cs-custom-condition-btn {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 8px !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.dc20cs-crit-summary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #dcfce7;
+  border: 1px solid #16a34a;
+  font-size: 11px;
+  font-weight: 700;
+  color: #14532d !important;
+  line-height: 1.25;
+}
+
+/* ==========================================================================
+   4. No-Target Fallback Strip
+   ========================================================================== */
+
+.dc20cs-no-target-box {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(159, 146, 117, 0.55);
+  background: #f8f6f1;
+  color: #1e293b;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dc20cs-no-target-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+button.dc20cs-eval-target-btn {
+  width: auto !important;
+  height: auto !important;
+  min-height: 22px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 2px 7px !important;
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+  border-radius: 4px !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+}
+
+.dc20cs-tier-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.dc20cs-tier-pill {
+  padding: 3px 4px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  line-height: 1.15;
+}
+
+.dc20cs-pill-name {
+  font-size: 9px;
+  opacity: 0.9;
+}
+
+.dc20cs-pill-val {
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.dc20cs-pill-normal {
+  background: var(--dc20cs-normal);
+}
+
+.dc20cs-pill-heavy {
+  background: var(--dc20cs-heavy);
+}
+
+.dc20cs-pill-brutal {
+  background: var(--dc20cs-brutal);
+}
+
+.dc20cs-pill-crit {
+  background: var(--dc20cs-critical);
+}

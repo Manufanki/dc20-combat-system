@@ -1,0 +1,88 @@
+{
+  "DC20CS": {
+    "Advantage": {
+      "Label": "Advantage",
+      "Tier1": "Advantage (2d20)",
+      "Tier2": "2× Advantage (3d20)",
+      "Tier3": "3× Advantage (4d20)",
+      "IncreaseHint": "Increase Advantage tier (2d20 → 3d20 → 4d20). Right-click to decrease.",
+      "DecreaseHint": "Decrease Advantage tier",
+      "ChatTag": "Advantage ×{tier} [{dice}d20]"
+    },
+    "Disadvantage": {
+      "Label": "Disadvantage",
+      "Tier1": "Disadvantage (2d20)",
+      "Tier2": "2× Disadvantage (3d20)",
+      "Tier3": "3× Disadvantage (4d20)",
+      "IncreaseHint": "Increase Disadvantage tier (2d20 → 3d20 → 4d20). Right-click to decrease.",
+      "DecreaseHint": "Decrease Disadvantage tier",
+      "ChatTag": "Disadvantage ×{tier} [{dice}d20]"
+    },
+    "Degree": {
+      "fumble": "Critical Miss",
+      "miss": "Miss",
+      "normal": "Normal Hit",
+      "heavy": "Heavy Hit",
+      "brutal": "Brutal Hit",
+      "critical": "Critical Hit!",
+      "Sub": {
+        "fumble": "Natural 1",
+        "miss": "Below AC",
+        "normal": "1/2 Max Dice (AC to AC+4)",
+        "heavy": "3/4 Max Dice (AC+5 to AC+9)",
+        "brutal": "Full Max Dice (AC+10+)",
+        "critical": "Natural 20! Choose an Option"
+      }
+    },
+    "Damage": {
+      "StaticLabel": "Static Damage",
+      "DiceMax": "Max Dice",
+      "Modifier": "Modifier",
+      "Formula": "Base",
+      "Apply": "Apply Damage",
+      "Applied": "Applied",
+      "NoTargetTitle": "Static Damage Tiers (No Target Selected)",
+      "EvaluateTarget": "Evaluate Current Target",
+      "NoTargetWarn": "Please target a token first (press T while hovering a token)!"
+    },
+    "Crit": {
+      "Header": "Critical Hit — Choose Your Option:",
+      "OptionATitle": "Maximum Damage",
+      "OptionASub": "Brutal Hit (Max) + Normal Hit (1/2)",
+      "OptionBTitle": "Tactical Strike",
+      "OptionBSub": "Brutal Hit (Max) + Inflict Condition",
+      "SelectCondition": "Choose a Condition to inflict:",
+      "CustomConditionPlaceholder": "Or type a custom condition (e.g. Crippled)...",
+      "ApplyConditionBtn": "Apply Condition",
+      "SelectedMax": "Chosen: Maximum Damage ({damage} Damage)",
+      "SelectedCondition": "Chosen: Tactical Strike ({damage} Damage + {condition})",
+      "ConditionApplied": "Applied \"{condition}\" to {target}!"
+    },
+    "Conditions": {
+      "prone": "Prone",
+      "blinded": "Blinded",
+      "grappled": "Grappled",
+      "restrained": "Restrained",
+      "stunned": "Stunned",
+      "frightened": "Frightened",
+      "poisoned": "Poisoned",
+      "deafened": "Deafened",
+      "incapacitated": "Incapacitated",
+      "crippled": "Crippled (Half Speed)"
+    },
+    "Settings": {
+      "EnableMultiAdv": {
+        "Name": "Multi-Advantage & Disadvantage (2–4 d20)",
+        "Hint": "Adds a + button next to Advantage and Disadvantage in attack and d20 roll dialogs (2d20, 3d20, 4d20)."
+      },
+      "EnableStaticDamage": {
+        "Name": "DC20 Hit Degrees & Static Damage in Chat",
+        "Hint": "Displays the hit degree (Normal, Heavy, Brutal, Critical), static damage, and interactive Critical Hit choices directly on attack roll chat messages."
+      },
+      "HideVanillaDamageButton": {
+        "Name": "Hide Standard Damage Roll Button",
+        "Hint": "Hides the standard D&D 5e Damage Roll button on activity cards since static damage is calculated directly on the attack roll."
+      }
+    }
+  }
+}

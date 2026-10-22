@@ -1,0 +1,50 @@
+{
+  "id": "dc20-combat-system",
+  "title": "DC20 Combat System for DnD 5e",
+  "description": "Brings DC20-style Multi-Advantage & Multi-Disadvantage (2d20, 3d20, 4d20 with + button in roll dialogs), AC-based Hit Degrees (Normal, Heavy, Brutal, Critical), Static Damage calculation, and interactive Critical Hit choices (Max Damage vs. Tactical Condition) to D&D 5e.",
+  "version": "1.0.0",
+  "url": "https://github.com/Manufanki/dc20-combat-system",
+  "Compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  },
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "Manufanki",
+      "url": "https://github.com/Manufanki"
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "3.0.0"
+        }
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/dc20-combat.css"
+  ],
+  "languages": [
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ]
+}

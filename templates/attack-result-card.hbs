@@ -1,0 +1,214 @@
+<div class="dc20cs-card" data-message-id="{{messageId}}">
+  {{#if d20Badge}}
+  <div class="dc20cs-d20-banner dc20cs-d20-{{d20Badge.mode}}">
+    <i class="fa-solid {{#if (eq d20Badge.mode 'advantage')}}fa-angles-up{{else}}fa-angles-down{{/if}}"></i>
+    <span>{{d20Badge.label}}</span>
+    <span class="dc20cs-d20-rolled">({{d20Badge.dice}}d20: {{d20Badge.resultsText}})</span>
+  </div>
+  {{/if}}
+
+  {{#if hasTargets}}
+  <div class="dc20cs-targets">
+    {{#each targets}}
+    <div class="dc20cs-target-card dc20cs-degree-{{this.activeDegree}}" data-target-uuid="{{this.uuid}}" data-target-index="{{@index}}">
+      {{!-- Row 1: Target Identity + Roll vs AC Pills --}}
+      <div class="dc20cs-target-header">
+        <div class="dc20cs-target-identity">
+          <img class="dc20cs-target-img" src="{{this.img}}" alt="{{this.name}}">
+          <span class="dc20cs-target-name" title="{{this.name}}">{{this.name}}</span>
+        </div>
+
+        <div class="dc20cs-target-vs">
+          <span class="dc20cs-roll-pill" title="Angriffswurf">
+            <i class="fa-solid fa-dice-d20"></i>
+            <span>{{../attackTotal}}</span>
+          </span>
+          {{#if this.showAC}}
+          <span class="dc20cs-vs-sep">vs</span>
+          <span class="dc20cs-ac-pill" title="Rüstungsklasse">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>{{this.ac}}</span>
+          </span>
+          <span class="dc20cs-margin-pill {{#if this.hit}}is-hit{{else}}is-miss{{/if}}">
+            {{this.marginFormatted}}
+          </span>
+          {{/if}}
+        </div>
+      </div>
+
+      {{!-- Row 2: Full-Width Hit Degree Banner --}}
+      <div class="dc20cs-degree-banner dc20cs-badge-{{this.activeDegree}}">
+        <div class="dc20cs-degree-left">
+          <i class="{{this.degreeIcon}}"></i>
+          <span class="dc20cs-degree-title">{{this.degreeLabel}}</span>
+        </div>
+        <span class="dc20cs-degree-sub">{{this.degreeSub}}</span>
+      </div>
+
+      {{!-- Row 3: Static Damage Display (shown when hit & weapon has damage) --}}
+      {{#if (and this.hit ../hasDamage)}}
+      <div class="dc20cs-damage-row">
+        <div class="dc20cs-damage-main">
+          <div class="dc20cs-damage-number">{{this.activeDamage.total}}</div>
+          <div class="dc20cs-damage-details">
+            <div class="dc20cs-damage-type">
+              {{#if ../damage.primaryTypeIcon}}
+              <img class="dc20cs-dmg-icon" src="{{../damage.primaryTypeIcon}}" alt="">
+              {{/if}}
+              <span>{{../damage.primaryTypeLabel}}</span>
+              {{#if this.selectedConditionLabel}}
+              <span class="dc20cs-condition-badge">
+                <i class="fa-solid fa-bolt"></i> + {{this.selectedConditionLabel}}
+              </span>
+              {{/if}}
+            </div>
+            <div class="dc20cs-damage-formula">
+              {{localize "DC20CS.Damage.Formula"}}: {{../damage.baseSummary}} &rarr; <strong>{{this.activeDamage.formulaDisplay}} = {{this.activeDamage.total}}</strong>
+            </div>
+          </div>
+        </div>
+
+        {{#if ../canInteract}}
+        <button type="button" class="dc20cs-apply-damage-btn {{#if this.damageApplied}}is-applied{{/if}}"
+                data-action="applyStaticDamage"
+                data-target-uuid="{{this.uuid}}"
+                data-target-index="{{@index}}"
+                data-damage-total="{{this.activeDamage.total}}">
+          {{#if this.damageApplied}}
+          <i class="fa-solid fa-check"></i>
+          <span>{{localize "DC20CS.Damage.Applied"}}</span>
+          {{else}}
+          <i class="fa-solid fa-heart-crack"></i>
+          <span>{{localize "DC20CS.Damage.Apply"}}</span>
+          {{/if}}
+        </button>
+        {{/if}}
+      </div>
+      {{/if}}
+
+      {{!-- Row 4: Critical Hit Interactive Choice Panel --}}
+      {{#if this.isCritical}}
+      <div class="dc20cs-crit-panel">
+        <div class="dc20cs-crit-header">
+          <i class="fa-solid fa-crown"></i>
+          <span>{{localize "DC20CS.Crit.Header"}}</span>
+        </div>
+
+        <div class="dc20cs-crit-options">
+          {{!-- Option A: Maximum Damage --}}
+          <button type="button"
+                  class="dc20cs-crit-option dc20cs-crit-opt-max {{#if (eq this.critChoice 'max')}}is-selected{{/if}}"
+                  data-action="selectCritOption" data-choice="max" data-target-index="{{@index}}"
+                  {{#unless ../canInteract}}disabled{{/unless}}>
+            <span class="dc20cs-crit-opt-top">
+              <i class="fa-solid fa-explosion"></i>
+              <span class="dc20cs-crit-opt-title">{{localize "DC20CS.Crit.OptionATitle"}}</span>
+            </span>
+            <span class="dc20cs-crit-opt-sub">{{localize "DC20CS.Crit.OptionASub"}}</span>
+            {{#if ../hasDamage}}
+            <span class="dc20cs-crit-opt-value">
+              {{../damage.tiers.critMax.total}} {{../damage.primaryTypeLabel}}
+              <small>({{../damage.tiers.critMax.formulaDisplay}})</small>
+            </span>
+            {{/if}}
+          </button>
+
+          {{!-- Option B: Tactical Strike (Brutal + Condition) --}}
+          <button type="button"
+                  class="dc20cs-crit-option dc20cs-crit-opt-condition {{#if (eq this.critChoice 'condition')}}is-selected{{/if}}"
+                  data-action="selectCritOption" data-choice="condition" data-target-index="{{@index}}"
+                  {{#unless ../canInteract}}disabled{{/unless}}>
+            <span class="dc20cs-crit-opt-top">
+              <i class="fa-solid fa-hand-fist"></i>
+              <span class="dc20cs-crit-opt-title">{{localize "DC20CS.Crit.OptionBTitle"}}</span>
+            </span>
+            <span class="dc20cs-crit-opt-sub">{{localize "DC20CS.Crit.OptionBSub"}}</span>
+            {{#if ../hasDamage}}
+            <span class="dc20cs-crit-opt-value">
+              {{../damage.tiers.critTactical.total}} {{../damage.primaryTypeLabel}} + <i class="fa-solid fa-skull"></i>
+            </span>
+            {{/if}}
+          </button>
+        </div>
+
+        {{!-- Condition Picker when Option B is selected --}}
+        {{#if (eq this.critChoice "condition")}}
+        <div class="dc20cs-condition-picker">
+          <div class="dc20cs-condition-picker-label">{{localize "DC20CS.Crit.SelectCondition"}}</div>
+          <div class="dc20cs-condition-chips">
+            {{#each ../conditions}}
+            <button type="button"
+                    class="dc20cs-condition-chip {{#if (eq ../this.selectedConditionId this.id)}}is-active{{/if}}"
+                    data-action="pickCritCondition"
+                    data-condition-id="{{this.id}}"
+                    data-condition-label="{{this.label}}"
+                    data-target-uuid="{{../this.uuid}}"
+                    data-target-index="{{@../index}}"
+                    {{#unless ../../canInteract}}disabled{{/unless}}>
+              <i class="{{this.icon}}"></i>
+              <span>{{this.label}}</span>
+            </button>
+            {{/each}}
+          </div>
+          {{#if ../canInteract}}
+          <div class="dc20cs-custom-condition-row">
+            <input type="text" class="dc20cs-custom-condition-input"
+                   value="{{this.customConditionText}}"
+                   placeholder="{{localize 'DC20CS.Crit.CustomConditionPlaceholder'}}">
+            <button type="button" class="dc20cs-custom-condition-btn"
+                    data-action="applyCustomCondition"
+                    data-target-uuid="{{this.uuid}}"
+                    data-target-index="{{@index}}">
+              <i class="fa-solid fa-check"></i> {{localize "DC20CS.Crit.ApplyConditionBtn"}}
+            </button>
+          </div>
+          {{/if}}
+        </div>
+        {{/if}}
+
+        {{#if this.critSummaryText}}
+        <div class="dc20cs-crit-summary">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>{{this.critSummaryText}}</span>
+        </div>
+        {{/if}}
+      </div>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+
+  {{else}}
+  {{!-- No Target Selected Fallback: Show Static Damage Tiers + "Evaluate Target" button --}}
+  {{#if hasDamage}}
+  <div class="dc20cs-no-target-box {{#if isRollCritical}}is-crit{{/if}}">
+    <div class="dc20cs-no-target-header">
+      <span>{{localize "DC20CS.Damage.NoTargetTitle"}} ({{damage.baseSummary}})</span>
+      {{#if canInteract}}
+      <button type="button" class="dc20cs-eval-target-btn" data-action="evaluateCurrentTarget">
+        <i class="fa-solid fa-crosshairs"></i> {{localize "DC20CS.Damage.EvaluateTarget"}}
+      </button>
+      {{/if}}
+    </div>
+    <div class="dc20cs-tier-strip">
+      <div class="dc20cs-tier-pill dc20cs-pill-normal">
+        <span class="dc20cs-pill-name">Normal (1/2)</span>
+        <span class="dc20cs-pill-val">{{damage.tiers.normal.total}}</span>
+      </div>
+      <div class="dc20cs-tier-pill dc20cs-pill-heavy">
+        <span class="dc20cs-pill-name">Heavy (3/4)</span>
+        <span class="dc20cs-pill-val">{{damage.tiers.heavy.total}}</span>
+      </div>
+      <div class="dc20cs-tier-pill dc20cs-pill-brutal">
+        <span class="dc20cs-pill-name">Brutal (Max)</span>
+        <span class="dc20cs-pill-val">{{damage.tiers.brutal.total}}</span>
+      </div>
+      <div class="dc20cs-tier-pill dc20cs-pill-crit">
+        <span class="dc20cs-pill-name">Krit Max</span>
+        <span class="dc20cs-pill-val">{{damage.tiers.critMax.total}}</span>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  {{/if}}
+</div>
